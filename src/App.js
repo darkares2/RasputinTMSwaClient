@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginForm } from './login';
+import { MainMenu } from './mainmenu';
 
 function App() {
   const appStyle = {
@@ -8,7 +8,7 @@ function App() {
   };
 
   return <div style={appStyle}>
-            <LoginForm />
+            <MainMenu />
         </div>;
 }
 
