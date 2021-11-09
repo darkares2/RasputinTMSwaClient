@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScheduleAppointment } from './shceduleappointment';
 
 const scheduleMenu = 'scheduleMenu';
 const listAppointments = 'listAppointments';
@@ -34,7 +35,7 @@ class MainMenu extends React.Component {
                 .then(json => { text = json; })
                 .catch(error => { console.log("Error: ", error); });
             if (text !== null) {
-                current.setState({ error: '' });                
+                current.setState({ error: '' });
                 console.log(text);
                 current.setState({ user: text });
             }
@@ -57,58 +58,27 @@ class MainMenu extends React.Component {
         if (this.state.user === null) {
             return <div>{this.state.error}</div>;
         }
-
-        const formStyle = {
-            margin: 'auto',
-            padding: '10px',
-            border: '1px solid #c9c9c9',
-            borderRadius: '5px',
-            background: '#f5f5f5',
-            width: '220px',
-            display: 'block'
-        };
-        const labelStyle = {
-            margin: '10px 0 5px 0',
-            fontFamily: 'Arial, Helvetica, sans-serif',
-            fontSize: '15px',
-        };
-        const buttonStyle = {
-            margin: '10px 0 0 0',
-            padding: '7px 10px',
-            border: '1px solid #efffff',
-            borderRadius: '3px',
-            background: '#3085d6',
-            width: '100%',
-            fontSize: '15px',
-            color: 'white',
-            display: 'block'
-        };
-
         var scheduleSubMenu = <span/>;
         if (this.state.currentSubmenu === scheduleMenu) {
-            const items = this.state.serviceList.map(service => (
-                <button style={buttonStyle} onClick={e=>{ this.onClickScheduleService(e, service.name); }} key={service.name}>
-                  {service.name}
-                </button>
-              ));
-            scheduleSubMenu = <div style={formStyle}>{items}</div>;
+            scheduleSubMenu = <ScheduleAppointment userID={this.state.userID} />;
         }
         var appointmentListSubMenu = <span/>;
         if (this.state.currentSubmenu === listAppointments) {
             const items = this.state.appointmentList.map(appointment => (
-                <button style={buttonStyle} onClick={e=>{ this.onClickScheduleService(e, appointment.name); }} key={appointment.name}>
+                <button className="button-7" onClick={e=>{ this.onClickScheduleService(e, appointment.name); }} key={appointment.name}>
                   {appointment.name}
                 </button>
               ));
-              appointmentListSubMenu = <div style={formStyle}>{items}</div>;
+              appointmentListSubMenu = <div >{items}</div>;
         }
 
         return (
-            <div style={formStyle}>
-                <span style={labelStyle}>Welcome {this.state.user.Name}</span>
-                <input type="button" value="Schedule new appointment" style={buttonStyle} onClick={this.onScheduleAppointment} />
+            <div className="fancy">
+                <h1>Welcome {this.state.user.Name}</h1>
+                <button className="button-7" type="button" onClick={this.onScheduleAppointment} >Schedule new appointment</button>
                 {scheduleSubMenu}
-                <input type="button" value="List appointments" style={buttonStyle} onClick={this.onListAppointments} />
+                <br/>
+                <button className="button-7" type="button" onClick={this.onListAppointments} >List appointments</button>
                 {appointmentListSubMenu}
             </div>
         );
