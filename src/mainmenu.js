@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppointmentList } from './appointmentlist';
 import { ScheduleAppointment } from './shceduleappointment';
 
 const scheduleMenu = 'scheduleMenu';
@@ -43,15 +44,11 @@ class MainMenu extends React.Component {
     }
 
     onScheduleAppointment = () => {
-        this.setState({currentSubmenu: scheduleMenu, serviceList: [{name: 'Hals'}, {name: 'Generelt'}]})
+        this.setState({currentSubmenu: scheduleMenu})
     }
 
     onListAppointments = () => {
-        this.setState({currentSubmenu: listAppointments, appointmentList: [{name: 'Hals'}, {name: 'Generelt'}]})
-    }
-
-    onClickScheduleService = (event, serviceName) => {
-        alert("Service chosen: " + serviceName);
+        this.setState({currentSubmenu: listAppointments})
     }
 
     render() {
@@ -64,12 +61,7 @@ class MainMenu extends React.Component {
         }
         var appointmentListSubMenu = <span/>;
         if (this.state.currentSubmenu === listAppointments) {
-            const items = this.state.appointmentList.map(appointment => (
-                <button className="button-7" onClick={e=>{ this.onClickScheduleService(e, appointment.name); }} key={appointment.name}>
-                  {appointment.name}
-                </button>
-              ));
-              appointmentListSubMenu = <div >{items}</div>;
+            appointmentListSubMenu = <AppointmentList userID={this.state.userID} />;
         }
 
         return (

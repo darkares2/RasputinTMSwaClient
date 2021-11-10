@@ -6,7 +6,6 @@ class ScheduleAppointment extends React.Component {
     constructor(props) {
         super(props);
         this.state = { error: 'loading...', serviceChoice: '', services: [], slots: [] };
-        window.React = require('react');
     }
 
     componentDidMount() {
@@ -44,8 +43,8 @@ class ScheduleAppointment extends React.Component {
 
         (async function () {
             var text = null;
-            const url = 'http://localhost:7073';
-            //const url = 'https://rasputintmfaslotservice.azurewebsites.net';
+            //const url = 'http://localhost:7073';
+            const url = 'https://rasputintmfaslotservice.azurewebsites.net';
             await fetch(url + '/api/GetSlot')
                 .then(response => {
                     console.log("Response: ", response);
@@ -85,7 +84,8 @@ class ScheduleAppointment extends React.Component {
         return (
             <div className="fancy">
                 {serviceChoices}
-                <SlotTable slots={data} />
+                <SlotTable slots={data} serviceChoice={this.state.serviceChoice} userID={this.props.userID} />
+                {this.state.error}
             </div>
         );
     }
