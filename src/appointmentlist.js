@@ -19,7 +19,6 @@ class AppointmentList extends React.Component {
 
         (async function () {
             var text = null;
-            //const url = 'http://localhost:7071';
             const url = 'https://rasputintmfaserviceservice.azurewebsites.net';
             await fetch(url + '/api/GetService')
                 .then(response => {
@@ -44,7 +43,6 @@ class AppointmentList extends React.Component {
 
         (async function () {
             var text = null;
-            //const url = 'http://localhost:7071';
             const url = 'https://rasputintmfauserservice.azurewebsites.net';
             await fetch(url + '/api/GetUser')
                 .then(response => {
@@ -69,7 +67,6 @@ class AppointmentList extends React.Component {
 
         (async function () {
             var text = null;
-            //const url = 'http://localhost:7075';
             const url = 'https://rasputintmfaappointmentservice.azurewebsites.net';
             await fetch(url + '/api/GetAppointment?userID=' + current.props.userID)
                 .then(response => {

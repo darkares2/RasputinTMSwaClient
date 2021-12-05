@@ -36,7 +36,6 @@ class SlotTable extends React.Component {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ slotID: slotID, userID: current.props.userID, serviceID: current.props.serviceChoice })
       };
-      //const url = 'http://localhost:7075';
       const url = 'https://rasputintmfaappointmentservice.azurewebsites.net';
       await fetch(url + '/api/CreateAppointment', requestOptions)
             .then(response => { 
@@ -51,8 +50,8 @@ class SlotTable extends React.Component {
             .catch(error => { console.log("Error: ", error); });
             if (text !== null) {
                 current.setState({ error: ''});
-                console.log(text);
-                current.setState({timeslot: new Date()});
+                console.log(text);                
+                current.props.onBook(slotID);
             }
     })();
   }  
@@ -72,9 +71,9 @@ class SlotTable extends React.Component {
               {this.props.slots.map(slot => (
                 <tr key={slot.SlotID}>
                   <td>{this.convertUTCToLocalTime(slot.Timeslot).toLocaleString("da-DK")}</td>
-                  <td>{slot.UserID}</td>
+                  <td>{slot.UserName}</td>
                   <td>{slot.ServiceNames}</td>
-                  <td><button className="button-7" type="button" onClick={ () => {this.onBook(slot.SlotID) } } disabled={this.state.disabled} >Book</button></td>
+                  <td><button className="button-7" type="button" onClick={ () => {this.onBook(slot.SlotID) } } disabled={this.state.disabled} >{this.state.disabled ? 'Booking...' : 'Book'}</button></td>
                 </tr>
               ))}
             </tbody>
